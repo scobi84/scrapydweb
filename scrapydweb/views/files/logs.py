@@ -34,7 +34,12 @@ class LogsView(BaseView):
                 url=self.url,
                 status_code=status_code,
                 text=self.text,
-                tip="Click the above link to make sure your Scrapyd server is accessable. "
+                tip="Click the above link to make sure your Scrapyd server is accessable. ",
+                SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
             )
             return render_template(self.template_fail, **kwargs)
 
@@ -75,6 +80,11 @@ class LogsView(BaseView):
             url=self.url,
             url_schedule=url_schedule,
             url_multinode_run=url_multinode_run,
-            rows=rows
+            rows=rows,
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)

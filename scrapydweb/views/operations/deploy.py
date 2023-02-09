@@ -68,7 +68,12 @@ class DeployView(BaseView):
             latest_folder=self.latest_folder,
             SCRAPY_PROJECTS_DIR=self.SCRAPY_PROJECTS_DIR.replace('\\', '/'),
             url_servers=url_for('servers', node=self.node, opt='deploy'),
-            url_deploy_upload=url_for('deploy.upload', node=self.node)
+            url_deploy_upload=url_for('deploy.upload', node=self.node),
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)
 
@@ -267,7 +272,12 @@ class DeployUploadView(BaseView):
                     url_schedule=url_for('schedule', node=self.node, project=self.project,
                                          version=self.version),
                     url_servers=url_for('servers', node=self.node, opt='schedule', project=self.project,
-                                        version_job=self.version)
+                                        version_job=self.version),
+                    SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+                    SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+                    SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+                    SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+                    DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
                 )
                 return render_template(self.template, **kwargs)
 

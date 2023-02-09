@@ -208,6 +208,16 @@ class ScheduleView(BaseView):
         self.kwargs.setdefault('coalesce', 'True')
         self.kwargs.setdefault('max_instances', 1)
 
+        self.kwargs.update(
+            dict(
+                SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+                SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+                SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+                SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+                DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
+            )
+        )
+
 
 class ScheduleCheckView(BaseView):
 
@@ -574,7 +584,12 @@ class ScheduleRunView(BaseView):
                                 for node in range(1, self.SCRAPYD_SERVERS_AMOUNT + 1)],
                 url_xhr=url_for('schedule.xhr', node=self.node, filename=self.filename),
                 url_servers=url_for('servers', node=self.node, opt='getreports', project=self.data['project'],
-                                    spider=self.data['spider'], version_job=self.data['jobid'])
+                                    spider=self.data['spider'], version_job=self.data['jobid']),
+                SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+                SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+                SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+                SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+                DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
             )
             return render_template(self.template, **kwargs)
         else:

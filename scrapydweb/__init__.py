@@ -120,7 +120,8 @@ def handle_db(app):
     #             self.init_app(app)
     db.app = app  # https://github.com/viniciuschiele/flask-apscheduler/blob/master/examples/flask_context.py
     db.init_app(app)  # http://flask-sqlalchemy.pocoo.org/2.3/contexts/
-    db.create_all()
+    with db.app.app_context():
+        db.create_all()
 
     # https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-error-handling
     @app.teardown_request

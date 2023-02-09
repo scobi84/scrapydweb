@@ -20,6 +20,11 @@ class SendTextView(BaseView):
             url_slack=url_for('sendtextapi', opt='slack', channel_chatid_subject=None, text='some-text'),
             url_telegram=url_for('sendtextapi', opt='telegram', channel_chatid_subject=None, text='some-text'),
             url_email=url_for('sendtextapi', opt='email', channel_chatid_subject=None, text='some-text'),
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)
 

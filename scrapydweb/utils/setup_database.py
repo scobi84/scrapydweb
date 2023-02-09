@@ -11,7 +11,7 @@ DB_JOBS = 'scrapydweb_jobs'
 DBS = [DB_APSCHEDULER, DB_TIMERTASKS, DB_METADATA, DB_JOBS]
 
 PATTERN_MYSQL = re.compile(r'mysql://(.+?)(?::(.+?))?@(.+?):(\d+)')
-PATTERN_POSTGRESQL = re.compile(r'(?:postgres|postgresql)://(.+?)(?::(.+?))?@(.+?):(\d+)')
+PATTERN_POSTGRESQL = re.compile(r'(?:postgres|postgresql)://(.+?)(?::(.+?))?@(.+?):(\d+)/')
 PATTERN_SQLITE = re.compile(r'sqlite:///(.+)$')
 
 SCRAPYDWEB_TESTMODE = os.environ.get('SCRAPYDWEB_TESTMODE', 'False').lower() == 'true'
@@ -19,7 +19,8 @@ SCRAPYDWEB_TESTMODE = os.environ.get('SCRAPYDWEB_TESTMODE', 'False').lower() == 
 
 def test_database_url_pattern(database_url):
     m_mysql = PATTERN_MYSQL.match(database_url)
-    m_postgres = PATTERN_POSTGRESQL.match(database_url)
+    m_postgres = True
+    # m_postgres = PATTERN_POSTGRESQL.match(database_url)
     m_sqlite = PATTERN_SQLITE.match(database_url)
     return m_mysql, m_postgres, m_sqlite
 
@@ -34,7 +35,8 @@ def setup_database(database_url, database_path):
     if m_mysql:
         setup_mysql(*m_mysql.groups())
     elif m_postgres:
-        setup_postgresql(*m_postgres.groups())
+        # setup_postgresql(*m_postgres.groups())
+        setup_postgresql(database_url)
     else:
         database_path = m_sqlite.group(1) if m_sqlite else database_path
         database_path = os.path.abspath(database_path)
@@ -117,7 +119,8 @@ def setup_mysql(username, password, host, port):
     conn.close()
 
 
-def setup_postgresql(username, password, host, port):
+def setup_postgresql(url):
+# def setup_postgresql(username, password, host, port):
     """
     https://github.com/my8100/notes/blob/master/back_end/the-flask-mega-tutorial.md
     When working with database servers such as MySQL and PostgreSQL,
@@ -131,7 +134,7 @@ def setup_postgresql(username, password, host, port):
     except (ImportError, AssertionError):
         sys.exit("Run command: %s" % install_command)
 
-    conn = psycopg2.connect(host=host, port=int(port), user=username, password=password)
+    conn = psycopg2.connect(url)
     conn.set_isolation_level(0)  # https://wiki.postgresql.org/wiki/Psycopg2_Tutorial
     cur = conn.cursor()
     for dbname in DBS:
@@ -154,8 +157,8 @@ def setup_postgresql(username, password, host, port):
         # (Chinese (Simplified)_People's Republic of China.936)
         # HINT:  Use the same collation as in the template database, or use template0 as template.
         try:
-            cur.execute("CREATE DATABASE %s ENCODING 'UTF8' LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8'" % dbname)
-        except:
+            cur.execute("CREATE DATABASE %s ENCODING 'UTF8'" % dbname)
+        except Exception as exc:
             try:
                 cur.execute("CREATE DATABASE %s" % dbname)
             except Exception as err:
