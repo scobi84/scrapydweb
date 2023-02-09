@@ -90,7 +90,7 @@ class JobsView(BaseView):
         self.pending_jobs = []
         self.running_jobs = []
         self.finished_jobs = []
-        self.jobs_pagination = None
+        self.jobs_pagination = {}
 
         self.Job = None  # database class Job
 
@@ -179,7 +179,7 @@ class JobsView(BaseView):
         else:
             self.Job = create_jobs_table(re.sub(STRICT_NAME_PATTERN, '_', self.SCRAPYD_SERVER))
             # sqlite3.OperationalError: table "127_0_0_1_6800" already exists
-            db.create_all(bind='jobs')
+            db.create_all()
             self.metadata[self.node] = self.Job
             jobs_table_map[self.node] = self.Job
             self.logger.debug("Created table: %s", self.Job.__tablename__)
@@ -417,7 +417,12 @@ class JobsView(BaseView):
             JOBS_RELOAD_INTERVAL=self.JOBS_RELOAD_INTERVAL,
             IS_IE_EDGE=self.IS_IE_EDGE,
             pageview=self.metadata['pageview'],
-            FEATURES=self.FEATURES
+            FEATURES=self.FEATURES,
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         if self.style == 'database':
             self.kwargs.update(dict(

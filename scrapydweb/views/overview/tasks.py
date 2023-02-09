@@ -105,7 +105,12 @@ class TasksView(BaseView):
             url_add_task=url_for('schedule', node=self.node, add_task='True'),
             scheduler_action_button=scheduler_action_button,
             url_scheduler_action=url_scheduler_action,
-            url_tasks_history=url_for('tasks.history')
+            url_tasks_history=url_for('tasks.history'),
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL
         )
 
     def remove_apscheduler_job_without_task(self):

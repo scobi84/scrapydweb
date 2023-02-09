@@ -44,6 +44,11 @@ class MultinodeView(BaseView):
             url_xhr=url_xhr,
             url_servers=url_servers,
             btn_servers=btn_servers,
-            url_projects_list=[url_for('projects', node=n) for n in range(1, self.SCRAPYD_SERVERS_AMOUNT + 1)]
+            url_projects_list=[url_for('projects', node=n) for n in range(1, self.SCRAPYD_SERVERS_AMOUNT + 1)],
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)

@@ -110,7 +110,9 @@ def check_app_config(config):
         # Note that check_app_config() is executed multiple times in test
         if node not in jobs_table_map:
             jobs_table_map[node] = create_jobs_table(re.sub(STRICT_NAME_PATTERN, '_', scrapyd_server))
-    db.create_all(bind='jobs')
+    with db.app.app_context():
+        db.create_all()
+        # db.create_all(bind='jobs')
     logger.debug("Created %s tables for JobsView", len(jobs_table_map))
 
     check_assert('LOCAL_SCRAPYD_LOGS_DIR', '', str)
@@ -279,8 +281,8 @@ def check_app_config(config):
     check_assert('DATA_PATH', '', str)
     check_assert('DATABASE_URL', '', str)
     database_url = config.get('DATABASE_URL', '')
-    if database_url:
-        assert any(test_database_url_pattern(database_url)), "Invalid format of DATABASE_URL: %s" % database_url
+    # if database_url:
+    #     assert any(test_database_url_pattern(database_url)), "Invalid format of DATABASE_URL: %s" % database_url
 
     # Apscheduler
     # In __init__.py create_app(): scheduler.start(paused=True)

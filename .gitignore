@@ -8,23 +8,7 @@ tests/data/
 
 
 scrapydweb/data/*
-!scrapydweb/data/parse/
-!scrapydweb/data/demo_projects/
 
-scrapydweb/data/parse/*
-!scrapydweb/data/parse/ScrapydWeb_demo.log
-
-scrapydweb/data/demo_projects/*
-!scrapydweb/data/demo_projects/ScrapydWeb_demo/
-!scrapydweb/data/demo_projects/ScrapydWeb_demo - 副本/
-
-scrapydweb/data/demo_projects/ScrapydWeb_demo/*
-!scrapydweb/data/demo_projects/ScrapydWeb_demo/ScrapydWeb_demo/
-!scrapydweb/data/demo_projects/ScrapydWeb_demo/scrapy.cfg
-
-scrapydweb/data/demo_projects/ScrapydWeb_demo - 副本/*
-!scrapydweb/data/demo_projects/ScrapydWeb_demo - 副本/ScrapydWeb_demo/
-!scrapydweb/data/demo_projects/ScrapydWeb_demo - 副本/scrapy.cfg
 
 
 venv/
@@ -43,4 +27,7 @@ dist/
 build/
 *.egg-info/
 
+.vscode
+.scrapy
 .idea
+.venv

@@ -52,8 +52,13 @@ class ProjectsView(BaseView):
                 url_delproject=url_for('projects', node=self.node, opt='delproject', project=self.project),
                 project=self.project,
                 text=self.text,
-                tip=self.js.get('tip', '')
-            )
+                tip=self.js.get('tip', ''),
+                SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+                SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+                SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+                SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+                DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
+                )
             return render_template('scrapydweb/listversions_error.html', **kwargs)
         else:
             if self.POST:
@@ -79,7 +84,12 @@ class ProjectsView(BaseView):
             url=self.js['url'],
             node_name=self.js['node_name'],
             results=results,
-            url_deploy=url_for('deploy', node=self.node)
+            url_deploy=url_for('deploy', node=self.node),
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template('scrapydweb/projects.html', **kwargs)
 
@@ -116,6 +126,11 @@ class ProjectsView(BaseView):
             project=self.project,
             results=results,
             url_multinode_delproject=url_for('servers', node=self.node, opt='delproject', project=self.project),
-            url_delproject=url_for('projects', node=self.node, opt='delproject', project=self.project)
+            url_delproject=url_for('projects', node=self.node, opt='delproject', project=self.project),
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template('scrapydweb/listversions.html', **kwargs)

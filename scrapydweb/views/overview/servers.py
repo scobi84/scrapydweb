@@ -72,6 +72,11 @@ class ServersView(BaseView):
                              version_job='JOB_PLACEHOLDER'),
             url_delversion=url_for('multinode', node=self.node, opt='delversion', project='PROJECT_PLACEHOLDER',
                                    version_job='VERSION_PLACEHOLDER'),
-            url_delproject=url_for('multinode', node=self.node, opt='delproject', project='PROJECT_PLACEHOLDER')
+            url_delproject=url_for('multinode', node=self.node, opt='delproject', project='PROJECT_PLACEHOLDER'),
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)

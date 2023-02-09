@@ -49,5 +49,10 @@ class NodeReportsView(BaseView):
             url_report=url_for('log', node=self.node, opt='report', project='PROJECT_PLACEHOLDER',
                                spider='SPIDER_PLACEHOLDER', job='JOB_PLACEHOLDER'),
             url_schedule=url_for('schedule', node=self.node),
+            SCRAPYD_SERVERS_AMOUNT=self.SCRAPYD_SERVERS_AMOUNT,
+            SCRAPYD_SERVERS=self.SCRAPYD_SERVERS,
+            SCRAPYD_SERVERS_GROUPS=self.SCRAPYD_SERVERS_GROUPS,
+            SCRAPYD_SERVERS_PUBLIC_URLS=self.SCRAPYD_SERVERS_PUBLIC_URLS,
+            DAEMONSTATUS_REFRESH_INTERVAL=self.DAEMONSTATUS_REFRESH_INTERVAL,
         )
         return render_template(self.template, **kwargs)
