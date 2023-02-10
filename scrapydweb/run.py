@@ -22,7 +22,7 @@ STAR = '\n%s\n' % ('*' * 100)
 DEFAULT_SETTINGS_PY_PATH = os.path.join(ROOT_DIR, 'default_settings.py')
 
 
-def main():
+def get_app():
     apscheduler_logger.setLevel(logging.ERROR)  # To hide warning logging in scheduler.py until app.run()
     main_pid = os.getpid()
     logger.info("ScrapydWeb version: %s", __version__)
@@ -115,8 +115,7 @@ def main():
            star=STAR, protocol=protocol, port=app.config['SCRAPYDWEB_PORT']))
     logger.info("For running Flask in production, check out http://flask.pocoo.org/docs/1.0/deploying/")
     apscheduler_logger.setLevel(logging.DEBUG)
-    app.run(host=app.config['SCRAPYDWEB_BIND'], port=app.config['SCRAPYDWEB_PORT'],
-            ssl_context=context, use_reloader=False)
+    return app, protocol, context
 
 
 def load_custom_settings(config):
@@ -249,4 +248,6 @@ def update_app_config(config, args):
 
 
 if __name__ == '__main__':
-    main()
+    app, protocol, context = get_app()
+    app.run(host=app.config['SCRAPYDWEB_BIND'], port=app.config['SCRAPYDWEB_PORT'],
+            ssl_context=context, use_reloader=False)

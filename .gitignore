@@ -31,3 +31,10 @@ build/
 .scrapy
 .idea
 .venv
+
+static/*
+*.css
+*.js
+*.woff
+*.ico
+*.png
