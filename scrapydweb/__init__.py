@@ -20,6 +20,7 @@ from .vars import PYTHON_VERSION, SQLALCHEMY_BINDS, SQLALCHEMY_DATABASE_URI
 # https://stackoverflow.com/questions/18820274/how-to-suppress-sqlalchemy-engine-base-engine-logging-to-stdout
 # logging.getLogger('sqlalchemy.engine.base.Engine').propagate = False
 logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.ERROR)
+logging.getLogger('sqlalchemy.engine.base.Engine').propagate = False
 # http://flask.pocoo.org/docs/1.0/logging/#basic-configuration
 dictConfig({
     'version': 1,
@@ -32,7 +33,7 @@ dictConfig({
         'formatter': 'default'
     }},
     'root': {
-        'level': 'INFO',
+        'level': 'ERROR',
         'handlers': ['wsgi']
     }
 })
